@@ -1,0 +1,26 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Data raw (besar, tidak perlu di GitHub)
+data/raw/
+
+# Backup & temporary files
+*-BACKUP-*/
+project_snapshot_before_docker.txt
+requirements_freeze_backup.txt
+baseline_health_response.json
+baseline_predict_response.json
+
+# Logs
+api/logs/*.log
+
+# Environment variables
+.env
