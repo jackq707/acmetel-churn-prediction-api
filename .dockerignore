@@ -1,0 +1,13 @@
+.venv/
+.git/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+notebooks/
+data/raw/
+*-BACKUP-*/
+project_snapshot_before_docker.txt
+requirements_freeze_backup.txt
+baseline_health_response.json
+baseline_predict_response.json
