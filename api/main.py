@@ -29,8 +29,14 @@ LOGS_DIR.mkdir(parents=True, exist_ok=True)
 BEST_MODEL_PATH = MODEL_DIR / "churn_best_pipeline.joblib"
 FEATURES_META_PATH = MODEL_DIR / "churn_features.json"
 
+import urllib.request
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+
+MODEL_URL = "https://github.com/jackq707/acmetel-churn-prediction-api/releases/download/v1.0.0/churn_best_pipeline.joblib"
 if not BEST_MODEL_PATH.exists():
-    raise RuntimeError(f"Best model not found at {BEST_MODEL_PATH}")
+    logger.info(f"Downloading model from {MODEL_URL}...")
+    urllib.request.urlretrieve(MODEL_URL, BEST_MODEL_PATH)
+    logger.info("Model downloaded successfully.")
 
 # Load pipeline (XGBoost champion model)
 pipeline = joblib.load(BEST_MODEL_PATH)
