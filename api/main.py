@@ -10,6 +10,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 # ── Logging setup ─────────────────────────────────────────────────────────────
+# Pastikan folder logs ada
+import os
+os.makedirs("api/logs", exist_ok=True)
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
