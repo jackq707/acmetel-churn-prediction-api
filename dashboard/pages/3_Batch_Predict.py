@@ -37,7 +37,7 @@ REQUIRED_COLS = [
     "MonthlyCharges","TotalCharges_clean"
 ]
 
-c1, c2, c3 = st.columns([1.2, 1.5, 1.3])
+c1, c2, c3 = st.columns([1, 1, 1])
 
 with c1:
     st.markdown('<div class="sh">📥 Step 1 — Template</div>', unsafe_allow_html=True)
@@ -75,8 +75,7 @@ with c3:
         else:
             st.success(f"✅ {len(df_check)} rows ready")
             st.caption(f"All {len(REQUIRED_COLS)} columns found")
-            st.caption(f"File: {uploaded.name} ({uploaded.size/1024:.1f} KB)")
-    else:
+        else:
         st.markdown('<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:14px;text-align:center;color:#94a3b8;font-size:13px">Upload a CSV file to validate</div>', unsafe_allow_html=True)
 
 st.markdown('<hr style="border:1px solid #e2e8f0;margin:6px 0">', unsafe_allow_html=True)
