@@ -82,6 +82,7 @@ with c3:
 st.markdown('<hr style="border:1px solid #e2e8f0;margin:6px 0">', unsafe_allow_html=True)
 
 if uploaded:
+    uploaded.seek(0)
     df_input = pd.read_csv(uploaded)
     missing_cols = [c for c in REQUIRED_COLS if c not in df_input.columns]
     if missing_cols:
