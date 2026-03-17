@@ -38,7 +38,7 @@ REQUIRED_COLS = [
 ]
 
 # ── Template download ─────────────────────────────────────────────────────────
-col_dl, col_up = st.columns([1, 2])
+col_dl, col_up = st.columns([1, 2.5])
 
 with col_dl:
     st.markdown('<div class="sh">📥 Step 1 — Download Template</div>', unsafe_allow_html=True)
@@ -72,7 +72,7 @@ with col_dl:
         mime="text/csv",
         use_container_width=True
     )
-    st.caption("Template berisi 2 contoh baris. Tambahkan data subscriber kamu.")
+    st.caption("Template contains 2 sample rows. Add your subscriber data.")
 
 with col_up:
     st.markdown('<div class="sh">📤 Step 2 — Upload CSV</div>', unsafe_allow_html=True)
@@ -83,7 +83,7 @@ st.markdown('<hr style="border:1px solid #e2e8f0;margin:6px 0">', unsafe_allow_h
 if uploaded:
     df_input = pd.read_csv(uploaded)
     st.markdown(f'<div class="sh" style="margin-top:6px">👀 Preview ({len(df_input)} rows)</div>', unsafe_allow_html=True)
-    st.dataframe(df_input.head(3), use_container_width=True, hide_index=True, height=130)
+    st.dataframe(df_input.head(2), use_container_width=True, hide_index=True, height=105)
 
     # Validate columns
     missing_cols = [c for c in REQUIRED_COLS if c not in df_input.columns]
@@ -121,12 +121,12 @@ if uploaded:
                 avg_p   = df_result["churn_probability"].mean()
 
                 c1,c2,c3,c4,c5,c6 = st.columns(6)
-                c1.markdown(f'<div class="stat-box" style="background:#dbeafe;color:#1e40af">📋 Total<br><span style="font-size:1.4rem">{total}</span></div>', unsafe_allow_html=True)
-                c2.markdown(f'<div class="stat-box" style="background:#fee2e2;color:#991b1b">🔴 Churn<br><span style="font-size:1.4rem">{churned}</span></div>', unsafe_allow_html=True)
-                c3.markdown(f'<div class="stat-box" style="background:#dcfce7;color:#14532d">🟢 Safe<br><span style="font-size:1.4rem">{safe}</span></div>', unsafe_allow_html=True)
-                c4.markdown(f'<div class="stat-box" style="background:#fee2e2;color:#991b1b">⚡ High<br><span style="font-size:1.4rem">{high}</span></div>', unsafe_allow_html=True)
-                c5.markdown(f'<div class="stat-box" style="background:#fef9c3;color:#854d0e">🟡 Med<br><span style="font-size:1.4rem">{medium}</span></div>', unsafe_allow_html=True)
-                c6.markdown(f'<div class="stat-box" style="background:#f1f5f9;color:#334155">📈 Avg<br><span style="font-size:1.4rem">{avg_p:.3f}</span></div>', unsafe_allow_html=True)
+                c1.markdown(f'<div class="stat-box" style="background:#dbeafe;color:#1e40af">📋 Total<br><span style="font-size:1.2rem">{total}</span></div>', unsafe_allow_html=True)
+                c2.markdown(f'<div class="stat-box" style="background:#fee2e2;color:#991b1b">🔴 Churn<br><span style="font-size:1.2rem">{churned}</span></div>', unsafe_allow_html=True)
+                c3.markdown(f'<div class="stat-box" style="background:#dcfce7;color:#14532d">🟢 Safe<br><span style="font-size:1.2rem">{safe}</span></div>', unsafe_allow_html=True)
+                c4.markdown(f'<div class="stat-box" style="background:#fee2e2;color:#991b1b">⚡ High<br><span style="font-size:1.2rem">{high}</span></div>', unsafe_allow_html=True)
+                c5.markdown(f'<div class="stat-box" style="background:#fef9c3;color:#854d0e">🟡 Med<br><span style="font-size:1.2rem">{medium}</span></div>', unsafe_allow_html=True)
+                c6.markdown(f'<div class="stat-box" style="background:#f1f5f9;color:#334155">📈 Avg<br><span style="font-size:1.2rem">{avg_p:.3f}</span></div>', unsafe_allow_html=True)
 
                 # Results table
                 st.markdown('<div class="sh" style="margin-top:14px">📋 Prediction Results</div>', unsafe_allow_html=True)
@@ -157,7 +157,7 @@ if uploaded:
 
                 st.dataframe(
                     df_filtered.style.applymap(color_risk, subset=["risk_level"]),
-                    use_container_width=True, hide_index=True, height=200
+                    use_container_width=True, hide_index=True, height=160
                 )
 
                 # Download buttons
