@@ -138,23 +138,23 @@ with col_result:
                 bad,good = [],[]
                 if contract=="Month-to-month":      bad.append("Contract Month-to-month (66% churn)")
                 elif contract=="Two year":          good.append("Contract Two year (3.3% churn)")
-                else:                               good.append("Contract One year (rendah)")
-                if internet=="Fiber optic":         bad.append("Fiber Optic (51.7% churn)")
+                else:                               good.append("One year contract — low churn risk")
+                if internet=="Fiber optic":         bad.append("Fiber Optic — high churn rate (51.7%)")
                 elif internet=="No":                good.append("No Internet (sangat rendah)")
-                if tenure<=12:                      bad.append(f"Tenure {tenure} bln — pelanggan baru")
-                elif tenure>=48:                    good.append(f"Tenure {tenure} bln — loyal")
-                if monthly_charges>=70:             bad.append(f"Monthly ${monthly_charges:.0f} — tinggi")
-                else:                               good.append(f"Monthly ${monthly_charges:.0f} — wajar")
-                if online_sec=="No" and internet!="No":   bad.append("Tidak ada Online Security")
-                if tech_support=="No" and internet!="No": bad.append("Tidak ada Tech Support")
-                if payment=="Electronic check":     bad.append("Electronic check — risiko tinggi")
+                if tenure<=12:                      bad.append(f"Tenure {tenure} bln — new customer, high risk")
+                elif tenure>=48:                    good.append(f"Tenure {tenure} mo — loyal customer")
+                if monthly_charges>=70:             bad.append(f"Monthly Charges ${monthly_charges:.0f} — high")
+                else:                               good.append(f"Monthly Charges ${monthly_charges:.0f} — moderate")
+                if online_sec=="No" and internet!="No":   bad.append("No Online Security subscription")
+                if tech_support=="No" and internet!="No": bad.append("No Tech Support subscription")
+                if payment=="Electronic check":     bad.append("Electronic check — high churn risk")
                 for f in bad:  st.markdown(f'<div class="factor-bad">❌ {f}</div>', unsafe_allow_html=True)
                 for f in good: st.markdown(f'<div class="factor-good">✅ {f}</div>', unsafe_allow_html=True)
 
                 st.markdown('<div class="sh" style="margin-top:8px">💡 Action</div>', unsafe_allow_html=True)
-                if prob>=0.70:   st.error("**Immediate Action** — Hubungi dalam 24 jam, tawarkan upgrade contract + diskon")
-                elif prob>=0.40: st.warning("**Monitor** — Kirim engagement email, tawarkan add-on service")
-                else:            st.success("**Loyal Customer** — Kirim appreciation & referral program")
+                if prob>=0.70:   st.error("**Immediate Action** — Contact within 24 hours, offer contract upgrade with discount")
+                elif prob>=0.40: st.warning("**Monitor** — Send engagement email, offer add-on services")
+                else:            st.success("**Loyal Customer** — Send appreciation message & referral program offer")
 
             except Exception as e:
                 st.error(f"API Error: {e}")
@@ -162,5 +162,5 @@ with col_result:
         st.markdown("""
         <div style="background:#f8fafc;border:2px dashed #cbd5e1;border-radius:12px;padding:60px 20px;text-align:center;margin-top:10px">
             <div style="font-size:3rem">🔍</div>
-            <div style="font-size:15px;color:#64748b;margin-top:8px;font-weight:600">Fill the form & click Predict</div>
+            <div style="font-size:15px;color:#64748b;margin-top:8px;font-weight:600">Fill in the form and click Predict Churn</div>
         </div>""", unsafe_allow_html=True)
