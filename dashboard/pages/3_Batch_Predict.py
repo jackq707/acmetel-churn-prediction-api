@@ -68,7 +68,7 @@ with c1:
         </div>
         <a href="data:text/csv;base64,{b64}" download="acmetel_batch_template.csv"
            style="background:white;color:#262730;border:1px solid #d0d0d0;border-radius:6px;padding:6px 18px;font-size:14px;text-decoration:none;white-space:nowrap;font-family:sans-serif">
-            Download template
+            Download
         </a>
     </div>
     """, unsafe_allow_html=True)
