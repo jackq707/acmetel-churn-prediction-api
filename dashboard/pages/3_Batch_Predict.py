@@ -54,11 +54,21 @@ with c1:
         "PaymentMethod":["Electronic check","Bank transfer (automatic)"],
         "MonthlyCharges":[80.0,55.0],"TotalCharges_clean":[400.0,2640.0]
     })
-    st.download_button("📥 Download CSV Template",
-        data=tpl.to_csv(index=False).encode("utf-8"),
+    csv_data = tpl.to_csv(index=False).encode("utf-8")
+    st.markdown("""
+    <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-size:1.6rem">📥</span>
+            <div>
+                <div style="font-weight:600;color:#262730;font-size:14px">Download CSV Template</div>
+                <div style="font-size:12px;color:#808495">2 sample rows • CSV format</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.download_button("📥 Download Template", data=csv_data,
         file_name="acmetel_batch_template.csv",
         mime="text/csv", use_container_width=True)
-    st.caption("2 sample rows. Add your subscriber data.")
 
 with c2:
     st.markdown('<div class="sh">Step 2 — Upload CSV</div>', unsafe_allow_html=True)
