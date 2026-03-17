@@ -32,7 +32,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-API_URL = st.secrets.get("API_URL", os.getenv("API_URL", "https://jackq707-acmetel-churn-api.hf.space"))
+API_URL = os.getenv("API_URL", "https://jackq707-acmetel-churn-api.hf.space")
 
 col_form, col_result = st.columns([1.3, 1])
 

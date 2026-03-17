@@ -27,7 +27,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-API_URL = st.secrets.get("API_URL", os.getenv("API_URL", "https://jackq707-acmetel-churn-api.hf.space"))
+API_URL = os.getenv("API_URL", "https://jackq707-acmetel-churn-api.hf.space")
 
 REQUIRED_COLS = [
     "gender","SeniorCitizen","Partner","Dependents","tenure",
