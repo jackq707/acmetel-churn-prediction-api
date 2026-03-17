@@ -64,31 +64,32 @@ with c2:
     uploaded = st.file_uploader("Upload", type=["csv"], label_visibility="collapsed")
 
 with c3:
-    st.markdown('<div class="sh">📋 Step 3 — File Status</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sh">✅ Step 3 — Validation</div>', unsafe_allow_html=True)
     if uploaded:
-        st.success(f"✅ **{uploaded.name}**")
-        st.caption(f"Size: {uploaded.size/1024:.1f} KB · Ready")
+        df_check = pd.read_csv(uploaded)
+        missing_cols = [c for c in REQUIRED_COLS if c not in df_check.columns]
+        if missing_cols:
+            st.error(f"❌ Missing columns: {len(missing_cols)}")
+            for mc in missing_cols[:3]:
+                st.caption(f"• {mc}")
+        else:
+            st.success(f"✅ {len(df_check)} rows ready")
+            st.caption(f"All {len(REQUIRED_COLS)} columns found")
+            st.caption(f"File: {uploaded.name} ({uploaded.size/1024:.1f} KB)")
     else:
-        st.markdown('<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:14px;text-align:center;color:#94a3b8;font-size:13px">No file uploaded yet</div>', unsafe_allow_html=True)
+        st.markdown('<div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:8px;padding:14px;text-align:center;color:#94a3b8;font-size:13px">Upload a CSV file to validate</div>', unsafe_allow_html=True)
 
 st.markdown('<hr style="border:1px solid #e2e8f0;margin:6px 0">', unsafe_allow_html=True)
 
 if uploaded:
     df_input = pd.read_csv(uploaded)
     missing_cols = [c for c in REQUIRED_COLS if c not in df_input.columns]
+    if missing_cols:
+        st.error(f"❌ Missing columns: {missing_cols}")
+        st.stop()
 
-    col_prev, col_valid = st.columns([3, 1])
-    with col_prev:
-        st.markdown(f'<div class="sh">👀 Preview ({len(df_input)} rows)</div>', unsafe_allow_html=True)
-        st.dataframe(df_input.head(2), use_container_width=True, hide_index=True, height=100)
-    with col_valid:
-        st.markdown('<div class="sh">✅ Validation</div>', unsafe_allow_html=True)
-        if missing_cols:
-            st.error(f"Missing: {missing_cols}")
-            st.stop()
-        else:
-            st.success(f"{len(df_input)} rows ready")
-            st.caption(f"All {len(REQUIRED_COLS)} columns found")
+    st.markdown(f'<div class="sh">👀 Preview ({len(df_input)} rows)</div>', unsafe_allow_html=True)
+    st.dataframe(df_input.head(3), use_container_width=True, hide_index=True, height=130)
 
     if st.button("▶️ Run Batch Prediction", use_container_width=True, type="primary"):
         records = df_input[REQUIRED_COLS].to_dict(orient="records")
