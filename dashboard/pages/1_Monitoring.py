@@ -92,7 +92,7 @@ with col1:
     daily = df.groupby("date_str").agg(total=("churn_flag","count"), churned=("churn_flag","sum")).reset_index()
     daily["pct"] = (daily["churned"]/daily["total"]*100).round(2)
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=daily["date_str"], y=daily["pct"], mode="lines+markers", line=dict(color="#e74c3c",width=2.5), marker=dict(size=8,color="#e74c3c",line=dict(width=2,color="white")), fill="tozeroy", fillcolor="rgba(231,76,60,0.08)"))
+    fig.add_trace(go.Scatter(x=daily["date_str"], y=daily["pct"], mode="lines+markers", line=dict(color="#e74c3c",width=2.5,shape="spline",smoothing=1.3), marker=dict(size=8,color="#e74c3c",line=dict(width=2,color="white")), fill="tozeroy", fillcolor="rgba(231,76,60,0.08)"))
     fig.add_hline(y=churn_rate, line_dash="dash", line_color="#94a3b8", line_width=1.5, annotation_text=f"Avg {churn_rate:.1f}%", annotation_font_size=12, annotation_font_color="#64748b")
 
     fig.update_layout(height=300, showlegend=False, yaxis=dict(ticksuffix="%",gridcolor="#e2e8f0",zeroline=False,tickfont=dict(size=13)), xaxis=dict(gridcolor="#e2e8f0",tickfont=dict(size=13),tickangle=0,tickformat="%b %d"), margin=dict(t=20,b=35,l=45,r=20), plot_bgcolor="#f8fafc", paper_bgcolor="white", font=dict(family="Inter,sans-serif",size=13,color="#334155"))
