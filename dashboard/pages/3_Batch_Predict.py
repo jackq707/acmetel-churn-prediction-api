@@ -9,13 +9,11 @@ st.set_page_config(page_title="Batch Predict — AcmeTel", page_icon="📁", lay
 
 st.markdown("""
 <style>
-.block-container{padding-top:1.8rem!important;padding-bottom:0.2rem!important}
+.block-container{padding-top:3rem!important;padding-bottom:0.2rem!important}
 [data-testid="stSidebar"]{background:#0f172a!important}
 [data-testid="stSidebar"] *{color:#e2e8f0!important;font-size:14px!important}
 .sh{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;padding-bottom:3px;border-bottom:2px solid #e2e8f0}
 .stat-box{border-radius:8px;padding:8px 4px;text-align:center;font-weight:700}
-[data-testid="stFileUploaderDropzone"]{display:none!important}
-[data-testid="stFileUploaderDropzoneInstructions"]{display:none!important}
 </style>
 """, unsafe_allow_html=True)
 
