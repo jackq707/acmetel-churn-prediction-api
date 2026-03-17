@@ -9,7 +9,7 @@ st.set_page_config(page_title="Batch Predict — AcmeTel", page_icon="📁", lay
 
 st.markdown("""
 <style>
-.block-container{padding-top:2.5rem!important;padding-bottom:0.5rem!important}
+.block-container{padding-top:1.2rem!important;padding-bottom:0.2rem!important}
 [data-testid="stSidebar"]{background:#0f172a!important}
 [data-testid="stSidebar"] *{color:#e2e8f0!important;font-size:14px!important}
 .sh{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;padding-bottom:3px;border-bottom:2px solid #e2e8f0}
@@ -38,7 +38,7 @@ REQUIRED_COLS = [
 ]
 
 # ── Template download ─────────────────────────────────────────────────────────
-col_dl, col_up = st.columns([1, 2.5])
+col_dl, col_up, col_info = st.columns([1.2, 1.5, 1.3])
 
 with col_dl:
     st.markdown('<div class="sh">📥 Step 1 — Download Template</div>', unsafe_allow_html=True)
@@ -78,12 +78,20 @@ with col_up:
     st.markdown('<div class="sh">📤 Step 2 — Upload CSV</div>', unsafe_allow_html=True)
     uploaded = st.file_uploader("Upload CSV file", type=["csv"], label_visibility="collapsed")
 
+with col_info:
+    st.markdown('<div class="sh">📋 File Info</div>', unsafe_allow_html=True)
+    if uploaded:
+        st.success(f"✅ **{uploaded.name}**")
+        st.caption(f"Size: {uploaded.size/1024:.1f} KB")
+    else:
+        st.info("No file uploaded yet")
+
 st.markdown('<hr style="border:1px solid #e2e8f0;margin:6px 0">', unsafe_allow_html=True)
 
 if uploaded:
     df_input = pd.read_csv(uploaded)
     st.markdown(f'<div class="sh" style="margin-top:6px">👀 Preview ({len(df_input)} rows)</div>', unsafe_allow_html=True)
-    st.dataframe(df_input.head(2), use_container_width=True, hide_index=True, height=105)
+    st.dataframe(df_input.head(2), use_container_width=True, hide_index=True, height=100)
 
     # Validate columns
     missing_cols = [c for c in REQUIRED_COLS if c not in df_input.columns]
@@ -157,7 +165,7 @@ if uploaded:
 
                 st.dataframe(
                     df_filtered.style.applymap(color_risk, subset=["risk_level"]),
-                    use_container_width=True, hide_index=True, height=160
+                    use_container_width=True, hide_index=True, height=140
                 )
 
                 # Download buttons
