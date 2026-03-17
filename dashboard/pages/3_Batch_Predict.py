@@ -15,6 +15,8 @@ st.markdown("""
 [data-testid="stSidebar"] *{color:#e2e8f0!important;font-size:14px!important}
 .sh{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;padding-bottom:3px;border-bottom:2px solid #e2e8f0}
 .sb{border-radius:8px;padding:8px 4px;text-align:center;font-weight:700}
+[data-testid="stFileUploaderDropzone"] button {font-size:0!important}
+[data-testid="stFileUploaderDropzone"] button::after {content:"Browse";font-size:14px!important}
 </style>
 """, unsafe_allow_html=True)
 
