@@ -16,6 +16,8 @@ st.markdown("""
 .sh{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;padding-bottom:3px;border-bottom:2px solid #e2e8f0}
 .sb{border-radius:8px;padding:8px 4px;text-align:center;font-weight:700}
 [data-testid="stFileUploaderDropzone"] button {font-size:0!important}
+[data-testid="stFileUploaderDropzoneInstructions"] div[data-testid="stMarkdownContainer"] p {font-size:14px!important;font-weight:600!important;color:#262730!important}
+[data-testid="stFileUploaderDropzoneInstructions"] small {font-size:12px!important;color:#808495!important}
 [data-testid="stFileUploaderDropzone"] button::after {content:"Browse";font-size:14px!important}
 </style>
 """, unsafe_allow_html=True)
@@ -91,7 +93,15 @@ with c3:
             st.success(f"✅ {len(df_chk)} rows ready")
             st.caption(f"All {len(REQUIRED_COLS)} columns found")
     else:
-        st.info("Upload a CSV file to validate")
+        st.markdown("""
+        <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;min-height:72px;display:flex;align-items:center;gap:12px">
+            <span style="font-size:1.6rem">✅</span>
+            <div>
+                <div style="font-weight:600;color:#262730;font-size:14px">Upload a CSV file to validate</div>
+                <div style="font-size:12px;color:#808495">All 19 required columns will be checked</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
 st.markdown('<hr style="border:1px solid #e2e8f0;margin:6px 0">', unsafe_allow_html=True)
 
