@@ -25,3 +25,4 @@ api/logs/*.log
 # Environment variables
 .env
 models/*.joblib
+dashboard/.streamlit/secrets.toml
