@@ -56,7 +56,7 @@ with c1:
     })
     csv_data = tpl.to_csv(index=False).encode("utf-8")
     st.markdown("""
-    <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+    <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:72px">
         <div style="display:flex;align-items:center;gap:12px">
             <span style="font-size:1.6rem">📥</span>
             <div>
@@ -66,9 +66,27 @@ with c1:
         </div>
     </div>
     """, unsafe_allow_html=True)
-    st.download_button("📥 Download Template", data=csv_data,
+    # Overlay download button positioned like "Browse files"
+    st.markdown("""
+    <style>
+    div[data-testid="stDownloadButton"] button {
+        position:relative;
+        margin-top:-58px !important;
+        float:right;
+        width:auto !important;
+        padding: 6px 16px !important;
+        background:white !important;
+        color:#262730 !important;
+        border:1px solid #d0d0d0 !important;
+        border-radius:6px !important;
+        font-size:14px !important;
+        font-weight:400 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    st.download_button("Download template", data=csv_data,
         file_name="acmetel_batch_template.csv",
-        mime="text/csv", use_container_width=True)
+        mime="text/csv")
 
 with c2:
     st.markdown('<div class="sh">Step 2 — Upload CSV</div>', unsafe_allow_html=True)
