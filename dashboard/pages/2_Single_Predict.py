@@ -97,7 +97,7 @@ with col_result:
 
         with st.spinner("Predicting..."):
             try:
-                resp   = httpx.post(f"{API_URL}/predict", json=payload, timeout=30)
+                resp   = httpx.post(f"{API_URL}/predict", json=payload, timeout=30, headers={"X-API-Key": os.getenv("API_KEY", "acmetel-dev-key-2026")})
                 result = resp.json()
                 prob   = result["churn_probability"]
                 flag   = result["churn_flag"]
