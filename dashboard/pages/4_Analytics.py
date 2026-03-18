@@ -43,7 +43,7 @@ if not raw:
     st.stop()
 
 df = pd.DataFrame(raw)
-df["timestamp"] = pd.to_datetime(df["timestamp"])
+df["timestamp"] = pd.to_datetime(df["timestamp"], utc=True)
 df["date"] = df["timestamp"].dt.date
 
 # ── Sidebar filters ───────────────────────────────────────────────────────────

@@ -15,8 +15,8 @@ st.markdown("""
 .risk-high{background:linear-gradient(135deg,#991b1b,#dc2626);color:white;border-radius:12px;padding:16px;text-align:center}
 .risk-medium{background:linear-gradient(135deg,#92400e,#d97706);color:white;border-radius:12px;padding:16px;text-align:center}
 .risk-safe{background:linear-gradient(135deg,#14532d,#16a34a);color:white;border-radius:12px;padding:16px;text-align:center}
-.factor-bad{background:#fee2e2;border-left:3px solid #dc2626;padding:5px 10px;border-radius:3px;margin:3px 0;font-size:13px}
-.factor-good{background:#dcfce7;border-left:3px solid #16a34a;padding:5px 10px;border-radius:3px;margin:3px 0;font-size:13px}
+.factor-bad{background:#3f1515;border-left:3px solid #dc2626;padding:5px 10px;border-radius:3px;margin:3px 0;font-size:13px;color:#fca5a5}
+.factor-good{background:#14301f;border-left:3px solid #16a34a;padding:5px 10px;border-radius:3px;margin:3px 0;font-size:13px;color:#86efac}
 div[data-testid="stSelectbox"] label, div[data-testid="stNumberInput"] label {font-size:13px!important}
 div[data-testid="stSelectbox"] > div, div[data-testid="stNumberInput"] > div {font-size:13px!important}
 </style>
