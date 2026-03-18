@@ -17,7 +17,9 @@ st.markdown("""
 [data-testid="stSidebar"]{background:#0f172a!important}
 [data-testid="stSidebar"] *{color:#e2e8f0!important;font-size:14px!important}
 [data-testid="stSidebar"] .stButton button{background:#2563a8!important;color:white!important;border:none!important;border-radius:8px!important}
-.sh{font-size:14px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #e2e8f0}
+.sh{font-size:14px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #1e293b}
+[data-testid="stPlotlyChart"]>div{border-radius:8px!important;overflow:hidden!important}
+.js-plotly-plot .plotly .modebar{background:transparent!important}
 </style>
 """, unsafe_allow_html=True)
 
@@ -79,8 +81,8 @@ c5.metric("👴 Senior Churn Rate", f"{senior_churn_rate:.1f}%")
 
 st.markdown("<div style='margin:8px 0'></div>", unsafe_allow_html=True)
 
-TH = dict(plot_bgcolor="#f8fafc", paper_bgcolor="white",
-          font=dict(family="Inter,sans-serif", size=13, color="#334155"),
+TH = dict(plot_bgcolor="#0f172a", paper_bgcolor="rgba(0,0,0,0)",
+          font=dict(family="Inter,sans-serif", size=13, color="#e2e8f0"),
           margin=dict(t=20,b=35,l=45,r=20))
 
 # ── Row 1: Contract, Internet Service, Source ─────────────────────────────────
@@ -100,7 +102,7 @@ with col1:
         textposition="outside", textfont=dict(size=12)
     ))
     fig1.update_layout(height=260, showlegend=False,
-                       xaxis=dict(ticksuffix="%", gridcolor="#e2e8f0", range=[0,110], tickfont=dict(size=12)),
+                       xaxis=dict(ticksuffix="%", gridcolor="#1e293b", range=[0,110], tickfont=dict(size=12)),
                        yaxis=dict(tickfont=dict(size=12)), **TH)
     st.plotly_chart(fig1, use_container_width=True)
 
@@ -118,7 +120,7 @@ with col2:
         textposition="outside", textfont=dict(size=12)
     ))
     fig2.update_layout(height=260, showlegend=False,
-                       xaxis=dict(ticksuffix="%", gridcolor="#e2e8f0", range=[0,110], tickfont=dict(size=12)),
+                       xaxis=dict(ticksuffix="%", gridcolor="#1e293b", range=[0,110], tickfont=dict(size=12)),
                        yaxis=dict(tickfont=dict(size=12)), **TH)
     st.plotly_chart(fig2, use_container_width=True)
 
@@ -131,10 +133,10 @@ with col3:
         marker=dict(colors=["#2563a8","#7c3aed","#0891b2"], line=dict(color="white", width=2.5)),
         textfont=dict(size=13), textinfo="percent+label"
     ))
-    fig3.update_layout(height=260, showlegend=False, margin=dict(t=20,b=10,l=0,r=0), paper_bgcolor="white")
+    fig3.update_layout(height=260, showlegend=False, margin=dict(t=20,b=10,l=0,r=0), paper_bgcolor="rgba(0,0,0,0)")
     st.plotly_chart(fig3, use_container_width=True)
 
-st.markdown('<hr style="border:1px solid #e2e8f0;margin:4px 0">', unsafe_allow_html=True)
+st.markdown('<hr style="border:1px solid #1e293b;margin:4px 0">', unsafe_allow_html=True)
 
 # ── Row 2: Gender+Senior, Monthly Charges dist, Prob histogram ────────────────
 col4, col5, col6 = st.columns([1.2, 1.8, 1.8])
@@ -158,7 +160,7 @@ with col4:
         textposition="outside", textfont=dict(size=12)
     ))
     fig4.update_layout(height=280, showlegend=False,
-                       xaxis=dict(ticksuffix="%", gridcolor="#e2e8f0", range=[0,110], tickfont=dict(size=12)),
+                       xaxis=dict(ticksuffix="%", gridcolor="#1e293b", range=[0,110], tickfont=dict(size=12)),
                        yaxis=dict(tickfont=dict(size=12)), **TH)
     st.plotly_chart(fig4, use_container_width=True)
 
@@ -176,9 +178,9 @@ with col5:
     fig5.update_layout(
         barmode="overlay", height=280,
         legend=dict(orientation="h", y=0.98, x=0.02, font=dict(size=12),
-                    bgcolor="rgba(255,255,255,0.8)"),
-        xaxis=dict(title="Monthly Charges ($)", gridcolor="#e2e8f0", tickfont=dict(size=12)),
-        yaxis=dict(gridcolor="#e2e8f0", tickfont=dict(size=12)), **TH
+                    bgcolor="rgba(15,23,42,0.8)"),
+        xaxis=dict(title="Monthly Charges ($)", gridcolor="#1e293b", tickfont=dict(size=12)),
+        yaxis=dict(gridcolor="#1e293b", tickfont=dict(size=12)), **TH
     )
     st.plotly_chart(fig5, use_container_width=True)
 
@@ -198,8 +200,8 @@ with col6:
     fig6.update_layout(
         barmode="overlay", height=280,
         legend=dict(orientation="h", y=0.98, x=0.02, font=dict(size=12),
-                    bgcolor="rgba(255,255,255,0.8)"),
-        xaxis=dict(title="Churn Probability", gridcolor="#e2e8f0", tickfont=dict(size=12)),
-        yaxis=dict(gridcolor="#e2e8f0", tickfont=dict(size=12)), **TH
+                    bgcolor="rgba(15,23,42,0.8)"),
+        xaxis=dict(title="Churn Probability", gridcolor="#1e293b", tickfont=dict(size=12)),
+        yaxis=dict(gridcolor="#1e293b", tickfont=dict(size=12)), **TH
     )
     st.plotly_chart(fig6, use_container_width=True)

@@ -18,7 +18,7 @@ st.markdown("""
 [data-testid="stSidebar"]{background:#0f172a!important}
 [data-testid="stSidebar"] *{color:#e2e8f0!important;font-size:14px!important}
 [data-testid="stSidebar"] .stButton button{background:#2563a8!important;color:white!important;border:none!important;border-radius:8px!important}
-.sh{font-size:14px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #1e293b}
+.sh{font-size:14px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;padding-bottom:4px;border-bottom:2px solid #e2e8f0}
 </style>
 """, unsafe_allow_html=True)
 
@@ -82,7 +82,7 @@ c5.metric("📈 Avg Probability", f"{avg_prob:.3f}")
 
 st.markdown("<div style='margin:8px 0'></div>", unsafe_allow_html=True)
 
-TH = dict(plot_bgcolor="#0f172a", paper_bgcolor="rgba(0,0,0,0)", font=dict(family="Inter,sans-serif", size=13, color="#e2e8f0"), margin=dict(t=20,b=35,l=45,r=20))
+TH = dict(plot_bgcolor="#f8fafc", paper_bgcolor="white", font=dict(family="Inter,sans-serif", size=13, color="#334155"), margin=dict(t=20,b=35,l=45,r=20))
 
 col1,col2,col3 = st.columns([2.2,1.4,2.0])
 
@@ -95,7 +95,7 @@ with col1:
     fig.add_trace(go.Scatter(x=daily["date_str"], y=daily["pct"], mode="lines+markers", line=dict(color="#e74c3c",width=2.5,shape="spline",smoothing=1.3), marker=dict(size=8,color="#e74c3c",line=dict(width=2,color="white")), fill="tozeroy", fillcolor="rgba(231,76,60,0.08)"))
     fig.add_hline(y=churn_rate, line_dash="dash", line_color="#94a3b8", line_width=1.5, annotation_text=f"Avg {churn_rate:.1f}%", annotation_font_size=12, annotation_font_color="#64748b")
 
-    fig.update_layout(height=300, showlegend=False, yaxis=dict(ticksuffix="%",gridcolor="#1e293b",zeroline=False,tickfont=dict(size=13)), xaxis=dict(gridcolor="#1e293b",tickfont=dict(size=13),tickangle=0,tickformat="%b %d"), margin=dict(t=20,b=35,l=45,r=20), plot_bgcolor="#0f172a", paper_bgcolor="rgba(0,0,0,0)", font=dict(family="Inter,sans-serif",size=13,color="#e2e8f0"))
+    fig.update_layout(height=300, showlegend=False, yaxis=dict(ticksuffix="%",gridcolor="#e2e8f0",zeroline=False,tickfont=dict(size=13)), xaxis=dict(gridcolor="#e2e8f0",tickfont=dict(size=13),tickangle=0,tickformat="%b %d"), margin=dict(t=20,b=35,l=45,r=20), plot_bgcolor="#f8fafc", paper_bgcolor="white", font=dict(family="Inter,sans-serif",size=13,color="#334155"))
     st.plotly_chart(fig, use_container_width=True)
 
 with col2:
@@ -104,7 +104,7 @@ with col2:
     rc.columns = ["risk_level","count"]
     cm = {"HIGH":"#e74c3c","MEDIUM":"#f39c12","SAFE":"#2ecc71"}
     fig2 = go.Figure(go.Pie(labels=rc["risk_level"], values=rc["count"], hole=0.58, marker=dict(colors=[cm.get(r,"#aaa") for r in rc["risk_level"]], line=dict(color="white",width=2.5)), textfont=dict(size=13), textinfo="percent+label"))
-    fig2.update_layout(height=250, showlegend=False, margin=dict(t=20,b=10,l=0,r=0), paper_bgcolor="rgba(0,0,0,0)")
+    fig2.update_layout(height=250, showlegend=False, margin=dict(t=20,b=10,l=0,r=0), paper_bgcolor="white")
     st.plotly_chart(fig2, use_container_width=True)
 
 with col3:
@@ -124,10 +124,10 @@ with col3:
         combined = pd.concat(frames).sort_values("pct", ascending=True)
         bc = ["#e74c3c" if p>=70 else "#f39c12" if p>=30 else "#2ecc71" for p in combined["pct"]]
         fig3 = go.Figure(go.Bar(y=combined["label"], x=combined["pct"], orientation="h", marker=dict(color=bc, line=dict(color="white",width=1)), text=[f"{p:.1f}%" for p in combined["pct"]], textposition="outside", textfont=dict(size=13)))
-        fig3.update_layout(height=300, showlegend=False, xaxis=dict(ticksuffix="%",gridcolor="#1e293b",range=[0,105],tickfont=dict(size=13)), yaxis=dict(tickfont=dict(size=13)), **TH)
+        fig3.update_layout(height=300, showlegend=False, xaxis=dict(ticksuffix="%",gridcolor="#e2e8f0",range=[0,105],tickfont=dict(size=13)), yaxis=dict(tickfont=dict(size=13)), **TH)
         st.plotly_chart(fig3, use_container_width=True)
 
-st.markdown('<hr style="border:1px solid #1e293b;margin:4px 0">', unsafe_allow_html=True)
+st.markdown('<hr style="border:1px solid #e2e8f0;margin:4px 0">', unsafe_allow_html=True)
 
 col_l, col_r = st.columns([2.2, 3.6])
 
@@ -137,7 +137,7 @@ with col_l:
         fig4 = go.Figure()
         fig4.add_trace(go.Histogram(x=df[df["churn_flag"]==1]["tenure"], name="Churn", marker_color="#e74c3c", opacity=0.78, nbinsx=20))
         fig4.add_trace(go.Histogram(x=df[df["churn_flag"]==0]["tenure"], name="Safe",  marker_color="#2ecc71", opacity=0.78, nbinsx=20))
-        fig4.update_layout(barmode="overlay", height=300, legend=dict(orientation="h",y=0.98,x=0.02,font=dict(size=13),bgcolor="rgba(15,23,42,0.8)",bordercolor="rgba(0,0,0,0)"), xaxis=dict(title="Tenure (months)",gridcolor="#1e293b",tickfont=dict(size=13)), yaxis=dict(gridcolor="#1e293b",tickfont=dict(size=13)), **TH)
+        fig4.update_layout(barmode="overlay", height=300, legend=dict(orientation="h",y=0.98,x=0.02,font=dict(size=13),bgcolor="rgba(255,255,255,0.8)",bordercolor="rgba(0,0,0,0)"), xaxis=dict(title="Tenure (months)",gridcolor="#e2e8f0",tickfont=dict(size=13)), yaxis=dict(gridcolor="#e2e8f0",tickfont=dict(size=13)), **TH)
         st.plotly_chart(fig4, use_container_width=True)
 
 with col_r:

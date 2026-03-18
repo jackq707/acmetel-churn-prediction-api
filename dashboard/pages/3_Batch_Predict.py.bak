@@ -13,7 +13,7 @@ st.markdown("""
 .block-container{padding-top:3rem!important;padding-bottom:0.2rem!important}
 [data-testid="stSidebar"]{background:#0f172a!important}
 [data-testid="stSidebar"] *{color:#e2e8f0!important;font-size:14px!important}
-.sh{font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;padding-bottom:3px;border-bottom:2px solid #1e293b}
+.sh{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;padding-bottom:3px;border-bottom:2px solid #e2e8f0}
 .sb{border-radius:8px;padding:8px 4px;text-align:center;font-weight:700}
 [data-testid="stFileUploaderDropzone"] button {font-size:14px!important}
 [data-testid="stFileUploaderDropzoneInstructions"] div[data-testid="stMarkdownContainer"] p {font-size:14px!important;font-weight:600!important;color:#262730!important}
@@ -62,7 +62,7 @@ with c1:
     csv_data = tpl.to_csv(index=False).encode("utf-8")
     b64 = base64.b64encode(csv_data).decode()
     st.markdown(f"""
-    <div style="background:#1e293b;border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:72px">
+    <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:72px">
         <div style="display:flex;align-items:center;gap:12px">
             <span style="font-size:1.6rem">📥</span>
             <div>
@@ -71,7 +71,7 @@ with c1:
             </div>
         </div>
         <a href="data:text/csv;base64,{b64}" download="acmetel_batch_template.csv"
-           style="background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:6px;padding:6px 18px;font-size:14px;text-decoration:none;white-space:nowrap;font-family:sans-serif">
+           style="background:white;color:#262730;border:1px solid #d0d0d0;border-radius:6px;padding:6px 18px;font-size:14px;text-decoration:none;white-space:nowrap;font-family:sans-serif">
             Download
         </a>
     </div>
@@ -94,7 +94,7 @@ with c3:
             st.caption(f"All {len(REQUIRED_COLS)} columns found")
     else:
         st.markdown("""
-        <div style="background:#1e293b;border-radius:8px;padding:16px 20px;min-height:72px;display:flex;align-items:center;gap:12px">
+        <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;min-height:72px;display:flex;align-items:center;gap:12px">
             <span style="font-size:1.6rem">✅</span>
             <div>
                 <div style="font-weight:600;color:#262730;font-size:14px">Upload a CSV file to validate</div>
@@ -103,7 +103,7 @@ with c3:
         </div>
         """, unsafe_allow_html=True)
 
-st.markdown('<hr style="border:1px solid #1e293b;margin:6px 0">', unsafe_allow_html=True)
+st.markdown('<hr style="border:1px solid #e2e8f0;margin:6px 0">', unsafe_allow_html=True)
 
 if uploaded:
     uploaded.seek(0)
@@ -148,7 +148,7 @@ if uploaded:
                     b2.markdown(f'<div class="sb" style="background:#fee2e2;color:#991b1b">High Risk<br><b>{hi}</b></div>', unsafe_allow_html=True)
                     c1b, c2b = st.columns(2)
                     c1b.markdown(f'<div class="sb" style="background:#fef9c3;color:#854d0e">Medium<br><b>{med}</b></div>', unsafe_allow_html=True)
-                    c2b.markdown(f'<div class="sb" style="background:#1e293b;color:#e2e8f0">Avg Prob<br><b>{avgp:.3f}</b></div>', unsafe_allow_html=True)
+                    c2b.markdown(f'<div class="sb" style="background:#f1f5f9;color:#334155">Avg Prob<br><b>{avgp:.3f}</b></div>', unsafe_allow_html=True)
 
                     st.markdown('<div class="sh" style="margin-top:8px">Download</div>', unsafe_allow_html=True)
                     st.download_button("📥 CSV", data=df_r.to_csv(index=False).encode("utf-8"),
@@ -184,7 +184,7 @@ if uploaded:
                 st.error(f"API Error: {e}")
 else:
     st.markdown("""
-    <div style="background:#1e293b;border:2px dashed #334155;border-radius:12px;padding:30px;text-align:center">
+    <div style="background:#f8fafc;border:2px dashed #cbd5e1;border-radius:12px;padding:30px;text-align:center">
         <div style="font-size:2.5rem">📁</div>
         <div style="font-size:15px;color:#64748b;margin-top:6px;font-weight:600">Upload a CSV file to start batch prediction</div>
         <div style="font-size:13px;color:#94a3b8;margin-top:3px">Download the template above to get the correct format</div>
