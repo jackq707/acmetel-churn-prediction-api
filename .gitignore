@@ -26,3 +26,4 @@ api/logs/*.log
 .env
 models/*.joblib
 dashboard/.streamlit/secrets.toml
+*.bak
