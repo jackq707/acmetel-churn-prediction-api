@@ -188,22 +188,12 @@ if uploaded:
 
                 with cr:
                     st.markdown('<div class="sh" style="margin-top:4px">Prediction Results</div>', unsafe_allow_html=True)
-                    f1, f2, f3, f4 = st.columns([1.2, 1, 1, 1])
-                    f1.markdown("**Filter:**")
-                    sh = f2.checkbox("🔴 HIGH",  value=True)
-                    sm = f3.checkbox("🟡 MED",   value=True)
-                    ss = f4.checkbox("🟢 SAFE",  value=True)
-                    rf = []
-                    if sh: rf.append("HIGH")
-                    if sm: rf.append("MEDIUM")
-                    if ss: rf.append("SAFE")
-
                     scols = ["gender","tenure","Contract","InternetService",
                              "MonthlyCharges","churn_probability","churn_flag","risk_level"]
                     av  = [c for c in scols if c in df_r.columns]
                     dfs = df_r[av].copy()
                     dfs["churn_probability"] = dfs["churn_probability"].map("{:.4f}".format)
-                    dff = dfs[df_r["risk_level"].isin(rf)]
+                    dff = dfs
 
                     def cr_style(val):
                         return {
