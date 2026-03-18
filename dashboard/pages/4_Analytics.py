@@ -1,9 +1,11 @@
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import streamlit as st
+from datetime import datetime
 import pandas as pd
 import plotly.graph_objects as go
 from utils.supabase_client import fetch_all_predictions
+from utils.pdf_report import generate_pdf
 
 st.set_page_config(page_title="Analytics", page_icon="🔬", layout="wide")
 
@@ -205,3 +207,24 @@ with col6:
         yaxis=dict(gridcolor="#1e293b", tickfont=dict(size=12)), **TH
     )
     st.plotly_chart(fig6, use_container_width=True)
+
+# ── PDF Export ────────────────────────────────────────────────────────────────
+st.markdown('<hr style="border:1px solid #1e293b;margin:12px 0">', unsafe_allow_html=True)
+col_pdf, _ = st.columns([1, 4])
+with col_pdf:
+    if st.button("📄 Download PDF Report", use_container_width=True):
+        kpis = [
+            ("Total Predictions", f"{total:,}"),
+            ("Churn Rate",        f"{churn_rate:.1f}%"),
+            ("Avg Probability",   f"{avg_prob:.3f}"),
+            ("High Risk",         f"{high_risk:,}"),
+            ("Senior Churn Rate", f"{senior_churn_rate:.1f}%"),
+        ]
+        pdf_bytes = generate_pdf("Analytics Report", kpis, df)
+        st.download_button(
+            label="💾 Save PDF",
+            data=pdf_bytes,
+            file_name=f"acmetel_analytics_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf",
+            mime="application/pdf",
+            use_container_width=True,
+        )

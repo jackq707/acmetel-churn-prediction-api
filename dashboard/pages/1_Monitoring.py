@@ -5,6 +5,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from datetime import datetime
 from utils.supabase_client import fetch_all_predictions
+from utils.pdf_report import generate_pdf
 
 st.set_page_config(page_title="Monitoring", page_icon="📊", layout="wide")
 
@@ -151,3 +152,24 @@ with col_r:
     def cr(val):
         return {"HIGH":"background-color:#fee2e2;color:#991b1b;font-weight:700","MEDIUM":"background-color:#fef9c3;color:#854d0e;font-weight:700","SAFE":"background-color:#dcfce7;color:#166534;font-weight:700"}.get(val,"")
     st.dataframe(dfd.style.applymap(cr, subset=["risk_level"]), use_container_width=True, hide_index=True, height=280)
+
+# ── PDF Export ────────────────────────────────────────────────────────────────
+st.markdown('<hr style="border:1px solid #1e293b;margin:12px 0">', unsafe_allow_html=True)
+col_pdf, _ = st.columns([1, 4])
+with col_pdf:
+    if st.button("📄 Download PDF Report", use_container_width=True):
+        kpis = [
+            ("Total Predictions", f"{total:,}"),
+            ("Predicted Churn",   f"{churners:,}"),
+            ("Churn Rate",        f"{churn_rate:.1f}%"),
+            ("High Risk",         f"{high_risk:,}"),
+            ("Avg Probability",   f"{avg_prob:.3f}"),
+        ]
+        pdf_bytes = generate_pdf("Monitoring Report", kpis, df)
+        st.download_button(
+            label="💾 Save PDF",
+            data=pdf_bytes,
+            file_name=f"acmetel_monitoring_{datetime.now().strftime('%Y%m%d_%H%M')}.pdf",
+            mime="application/pdf",
+            use_container_width=True,
+        )
