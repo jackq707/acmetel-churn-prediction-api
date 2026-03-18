@@ -79,6 +79,31 @@ with c1:
 
 with c2:
     st.markdown('<div class="sh">Step 2 — Upload CSV</div>', unsafe_allow_html=True)
+    st.markdown("""
+    <style>
+    [data-testid="stFileUploaderDropzone"]{
+        background:#f0f2f6!important;border-radius:8px!important;
+        border:none!important;padding:0!important;min-height:72px!important;
+    }
+    [data-testid="stFileUploaderDropzoneInstructions"]{display:none!important}
+    [data-testid="stFileUploader"] section {padding:0!important}
+    [data-testid="stFileUploaderDropzone"]::before{
+        content:"";display:flex;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    # Custom visual box matching Step 1
+    st.markdown("""
+    <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:72px;margin-bottom:-72px;position:relative;z-index:0">
+        <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-size:1.6rem">☁️</span>
+            <div>
+                <div style="font-weight:600;color:#262730;font-size:14px">Drag and drop file here</div>
+                <div style="font-size:12px;color:#808495">Limit 200MB per file • CSV</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     uploaded = st.file_uploader("Upload", type=["csv"], label_visibility="collapsed")
 
 with c3:
