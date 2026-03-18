@@ -26,7 +26,7 @@ st.markdown("""
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px">
   <div style="background:linear-gradient(135deg,#1e3a5f,#2563a8);border-radius:12px;padding:10px 14px;font-size:1.8rem;line-height:1">📊</div>
   <div>
-    <div style="font-size:2rem;font-weight:900;color:#0f172a;line-height:1.1">Monitoring Dashboard</div>
+    <div style="font-size:2rem;font-weight:900;color:#f1f5f9;line-height:1.1">Monitoring Dashboard</div>
     <div style="font-size:14px;color:#94a3b8;margin-top:3px">Real-time churn prediction monitoring — AcmeTel Churn Prediction API</div>
   </div>
 </div>

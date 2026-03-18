@@ -26,7 +26,7 @@ st.markdown("""
 <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
   <div style="background:linear-gradient(135deg,#1e3a5f,#2563a8);border-radius:10px;padding:8px 12px;font-size:1.6rem;line-height:1">📁</div>
   <div>
-    <div style="font-size:1.8rem;font-weight:900;color:#0f172a;line-height:1.1">Batch Predict</div>
+    <div style="font-size:1.8rem;font-weight:900;color:#f1f5f9;line-height:1.1">Batch Predict</div>
     <div style="font-size:13px;color:#94a3b8;margin-top:2px">Upload CSV and predict churn for multiple customers at once</div>
   </div>
 </div>
