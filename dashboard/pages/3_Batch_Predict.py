@@ -15,10 +15,10 @@ st.markdown("""
 [data-testid="stSidebar"] *{color:#e2e8f0!important;font-size:14px!important}
 .sh{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;padding-bottom:3px;border-bottom:2px solid #e2e8f0}
 .sb{border-radius:8px;padding:8px 4px;text-align:center;font-weight:700}
-[data-testid="stFileUploaderDropzone"] button {font-size:0!important}
+[data-testid="stFileUploaderDropzone"] button {font-size:14px!important}
 [data-testid="stFileUploaderDropzoneInstructions"] div[data-testid="stMarkdownContainer"] p {font-size:14px!important;font-weight:600!important;color:#262730!important}
 [data-testid="stFileUploaderDropzoneInstructions"] small {font-size:12px!important;color:#808495!important}
-[data-testid="stFileUploaderDropzone"] button::after {content:"Browse";font-size:14px!important}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -79,32 +79,7 @@ with c1:
 
 with c2:
     st.markdown('<div class="sh">Step 2 — Upload CSV</div>', unsafe_allow_html=True)
-    st.markdown("""
-    <style>
-    [data-testid="stFileUploaderDropzone"]{
-        background:#f0f2f6!important;border-radius:8px!important;
-        border:none!important;padding:0!important;min-height:72px!important;
-    }
-    [data-testid="stFileUploaderDropzoneInstructions"]{display:none!important}
-    [data-testid="stFileUploader"] section {padding:0!important}
-    [data-testid="stFileUploaderDropzone"]::before{
-        content:"";display:flex;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    # Custom visual box matching Step 1
-    st.markdown("""
-    <div style="background:#f0f2f6;border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;min-height:72px;margin-bottom:-72px;position:relative;z-index:0">
-        <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:1.6rem">☁️</span>
-            <div>
-                <div style="font-weight:600;color:#262730;font-size:14px">Drag and drop file here</div>
-                <div style="font-size:12px;color:#808495">Limit 200MB per file • CSV</div>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    uploaded = st.file_uploader("Upload", type=["csv"], label_visibility="collapsed")
+    uploaded = st.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
 
 with c3:
     st.markdown('<div class="sh">Step 3 — Validation</div>', unsafe_allow_html=True)
@@ -146,7 +121,7 @@ if uploaded:
         payload = {"items": [{"data": r} for r in records]}
         with st.spinner(f"Predicting {len(records)} customers..."):
             try:
-                resp = httpx.post(f"{API_URL}/predict_batch", json=payload, timeout=60)
+                resp = httpx.post(f"{API_URL}/predict_batch", json=payload, timeout=60, headers={"X-API-Key": os.getenv("API_KEY", "acmetel-dev-key-2026")})
                 res  = resp.json()["results"]
                 df_r = df_input.copy()
                 df_r["churn_probability"] = [r["churn_probability"] for r in res]
