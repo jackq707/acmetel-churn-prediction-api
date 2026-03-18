@@ -6,8 +6,12 @@ from datetime import datetime
 
 import joblib
 import pandas as pd
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Security, Request
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 # ── Logging setup ─────────────────────────────────────────────────────────────
 # Pastikan folder logs ada
@@ -56,6 +60,18 @@ CATEGORICAL_FEATURES: List[str] = features_meta.get("categorical", [])
 
 logger.info(f"Loaded {len(ALL_FEATURES)} features: {len(NUMERIC_FEATURES)} numeric, {len(CATEGORICAL_FEATURES)} categorical")
 
+# ── API Key Security ──────────────────────────────────────────────────────────
+API_KEYS = set(filter(None, os.getenv("API_KEYS", "acmetel-dev-key-2026").split(",")))
+api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
+
+async def verify_api_key(api_key: str = Security(api_key_header)):
+    if not api_key or api_key not in API_KEYS:
+        raise HTTPException(status_code=401, detail="Invalid or missing API Key. Include X-API-Key header.")
+    return api_key
+
+# ── Rate Limiter ──────────────────────────────────────────────────────────────
+limiter = Limiter(key_func=get_remote_address, default_limits=["100/minute"])
+
 # ── Pydantic models ───────────────────────────────────────────────────────────
 class ChurnRequest(BaseModel):
     data: Dict[str, Any] = Field(
@@ -85,6 +101,7 @@ class ChurnBatchResponse(BaseModel):
 # ── FastAPI app ───────────────────────────────────────────────────────────────
 app = FastAPI(
     title="AcmeTel Churn Prediction API",
+    dependencies=[Security(verify_api_key)],
     version="1.0.0",
     description="Production-ready API for customer churn prediction using XGBoost pipeline (ROC AUC: 0.8423)",
     tags_metadata=[
@@ -139,11 +156,11 @@ def health_check():
     }
 
 @app.post("/predict", response_model=ChurnResponse, tags=["prediction"])
-def predict(request: ChurnRequest):
+def predict(body: ChurnRequest):
     """Predict churn probability for single customer"""
-    logger.info(f"Predict request: {len(request.data)} features")
+    logger.info(f"Predict request: {len(body.data)} features")
     
-    record = request.data
+    record = body.data
     missing = [f for f in ALL_FEATURES if f not in record]
     if missing:
         logger.warning(f"Missing features: {missing}")
@@ -166,11 +183,11 @@ def predict(request: ChurnRequest):
     )
 
 @app.post("/predict_batch", response_model=ChurnBatchResponse, tags=["prediction"])
-def predict_batch(request: ChurnBatchRequest):
+def predict_batch(body: ChurnBatchRequest):
     """Predict churn probability for batch of customers"""
-    logger.info(f"Batch predict: {len(request.items)} customers")
+    logger.info(f"Batch predict: {len(body.items)} customers")
     
-    records = [item.data for item in request.items]
+    records = [item.data for item in body.items]
     if not records:
         raise HTTPException(status_code=400, detail="No items provided.")
     
